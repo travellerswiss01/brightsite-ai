@@ -1,0 +1,6 @@
+import type {Opportunity} from "../core/types.js";
+export function rankOpportunities():Opportunity[]{const c:Opportunity[]=[
+{id:"opp-001",problem:"Small Swiss service businesses lose leads because inquiries are not answered quickly.",targetCustomer:"Small Swiss service companies",solution:"AI lead-response and follow-up micro-SaaS.",estimatedPriceChf:49,estimatedMvpDays:2,estimatedMvpCostChf:15,competition:"medium",automationPotential:92,score:0},
+{id:"opp-002",problem:"Small businesses struggle to turn existing reviews into reusable marketing content.",targetCustomer:"Local businesses",solution:"Automated review-to-content engine.",estimatedPriceChf:29,estimatedMvpDays:1,estimatedMvpCostChf:8,competition:"high",automationPotential:95,score:0},
+{id:"opp-003",problem:"Solo operators need simple recurring reporting without spreadsheets.",targetCustomer:"Solo operators and micro-businesses",solution:"Automated weekly business KPI report.",estimatedPriceChf:39,estimatedMvpDays:1,estimatedMvpCostChf:5,competition:"medium",automationPotential:90,score:0}
+];return c.map(o=>({...o,score:Math.round(.25*o.automationPotential+.25*(o.estimatedPriceChf>=30?100:70)+.25*(100-o.estimatedMvpDays*20)+.25*(o.competition==="low"?100:o.competition==="medium"?70:40))})).sort((a,b)=>b.score-a.score)}
