@@ -1,0 +1,4 @@
+import type {CompanyState,Decision} from "../core/types.js";
+import {CompanyMemory} from "../core/memory.js";
+import {rankOpportunities} from "./research.js";
+export function runCeoCycle(state:CompanyState,memory:CompanyMemory):Decision{const opportunities=rankOpportunities();opportunities.forEach(o=>memory.addOpportunity(o));const winner=opportunities[0];const d:Decision={id:"decision-"+Date.now(),timestamp:new Date().toISOString(),agent:"CEO",action:"Validate and prototype: "+winner.solution,reason:"Highest current opportunity score: "+winner.score+"/100 with low MVP cost and high automation potential.",expectedOutcome:"Validate willingness to pay without exceeding CHF "+state.cashChf.toFixed(2)+" available capital.",confidence:Math.min(.95,winner.score/100),costChf:winner.estimatedMvpCostChf};memory.addDecision(d);return d}
